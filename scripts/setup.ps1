@@ -1,7 +1,8 @@
 # FILE: scripts/setup.ps1
 
 $ErrorActionPreference = "Stop"
-$REPO_DIR = Split-Path -LiteralPath $PSScriptRoot -Parent
+$ScriptDir = if ($PSScriptRoot) { $PSScriptRoot } else { Split-Path -Parent $MyInvocation.MyCommand.Path }
+$REPO_DIR = Split-Path -LiteralPath $ScriptDir -Parent
 Set-Location $REPO_DIR
 
 Write-Host "Installing ClipNote..."

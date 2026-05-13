@@ -21,13 +21,44 @@
 
 ClipNote 让你刷到好东西时直接保存——**下载 → ASR 转写 → AI 润色+摘要 → 写入 Obsidian**，全程静默完成。以后搜关键词就能找到，不用重看视频。
 
+## 系统要求
+
+- macOS / Linux / Windows
+- **Python 3.10 ~ 3.12**（Python 3.13+ 部分科学计算包可能缺少 wheel）
+- [Claude Code](https://claude.ai/code)（终端版）
+- ffmpeg：`brew install ffmpeg`（macOS）或从 [ffmpeg.org](https://ffmpeg.org/) 下载（Windows）
+
 ## 快速开始
 
+### 安装（给 Claude 的一句话指令）
+
+直接把下面这句话发给你的 Claude Code agent，它会自动完成所有安装：
+
+```
+Clone https://github.com/ethanl-dev/Clipnote-skill.git into ~/.claude/skills/clipnote.skill, then run the setup script (scripts/setup.sh on macOS/Linux, scripts/setup.ps1 on Windows), then create a config.json from config.example.json and prompt me for the values.
+```
+
+### 手动安装
+
+**macOS / Linux：**
+
 ```bash
-git clone https://github.com/lyx20050904-lgtm/Clipnote-skill.git
-cd Clipnote-skill
+# 克隆到 Claude Code skills 目录（只有这样 /clipnote 才能被识别）
+git clone https://github.com/ethanl-dev/Clipnote-skill.git ~/.claude/skills/clipnote.skill
+cd ~/.claude/skills/clipnote.skill
 bash scripts/setup.sh
 ```
+
+**Windows（PowerShell）：**
+
+```powershell
+# 克隆到 Claude Code skills 目录
+git clone https://github.com/ethanl-dev/Clipnote-skill.git $env:USERPROFILE\.claude\skills\clipnote.skill
+cd $env:USERPROFILE\.claude\skills\clipnote.skill
+.\scripts\setup.ps1
+```
+
+### 触发方式
 
 在 Claude Code 中，两种方式触发：
 
@@ -48,13 +79,6 @@ bash scripts/setup.sh
 | **智能降级** | 任一步骤失败不影响后续，最大化产出 |
 | **Obsidian 原生** | 自动写入 vault，带 frontmatter 标签 |
 | **优雅降级** | 无 Obsidian 则输出到 `~/Desktop/ClipNote/` |
-
-## 安装依赖
-
-- macOS / Linux
-- Python 3.12+
-- [Claude Code](https://claude.ai/code)（终端版）
-- ffmpeg：`brew install ffmpeg`
 
 ## 配置
 

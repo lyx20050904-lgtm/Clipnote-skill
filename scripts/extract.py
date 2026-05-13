@@ -23,7 +23,7 @@ def extract_audio(video_path: str, output_path: str) -> str:
         "-y",
         output_path,
     ]
-    result = subprocess.run(cmd, capture_output=True, text=True)
+    result = subprocess.run(cmd, capture_output=True, encoding="utf-8", errors="replace")
     if result.returncode != 0:
         raise RuntimeError(f"ffmpeg failed:\n{result.stderr}")
     return output_path

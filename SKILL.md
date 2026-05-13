@@ -7,7 +7,7 @@ description: 丢进去一个小红书链接，出来一篇带 AI 摘要和润色
 
 将小红书视频内容摘录为 Obsidian 笔记的自动化管线。
 
-运行 `python` 命令时始终使用 `./.venv/bin/python`（Skill 自带的虚拟环境）。
+运行 `python` 命令时始终使用 Skill 自带虚拟环境的 Python（macOS/Linux: `.venv/bin/python`，Windows: `.venv\Scripts\python.exe`）。
 
 ## 调用方式
 
@@ -24,9 +24,9 @@ description: 丢进去一个小红书链接，出来一篇带 AI 摘要和润色
 ### Step 2: 下载视频
 
 ```bash
-cd /Users/macos/.claude/skills/clipnote.skill
-./.venv/bin/python scripts/download.py "<url>" "<临时工作目录>"
+python scripts/download.py "<url>" "<临时工作目录>"
 ```
+（从 skill 目录运行，使用 skill 虚拟环境的 python）
 
 成功时返回 JSON，包含 `title`, `author`, `video_path` 等字段。
 失败时（exit code 1）提示用户链接无效或需要 Cookie。
@@ -34,7 +34,7 @@ cd /Users/macos/.claude/skills/clipnote.skill
 ### Step 3: 提取音频
 
 ```bash
-./.venv/bin/python scripts/extract.py "<video_path>" "<工作目录>/audio.wav"
+python scripts/extract.py "<video_path>" "<工作目录>/audio.wav"
 ```
 
 成功输出音频路径。失败则跳过转录，仅做 AI 总结（不含逐字稿）。
@@ -42,7 +42,7 @@ cd /Users/macos/.claude/skills/clipnote.skill
 ### Step 4: 转录
 
 ```bash
-./.venv/bin/python scripts/transcribe.py "<audio_path>"
+python scripts/transcribe.py "<audio_path>"
 ```
 
 返回 JSON: `{"text": "..."}`。失败则跳过逐字稿。
@@ -71,8 +71,7 @@ cd /Users/macos/.claude/skills/clipnote.skill
 ### Step 6: 写入笔记
 
 ```bash
-cd /Users/macos/.claude/skills/clipnote.skill
-./.venv/bin/python scripts/write_note.py '<json_data>'
+python scripts/write_note.py '<json_data>'
 ```
 
 其中 json_data 需要包含：
